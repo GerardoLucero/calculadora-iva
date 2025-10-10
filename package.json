@@ -1,6 +1,6 @@
 {
   "name": "calculadora-iva",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "type": "module",
   "description": "Calculadora de IVA (Impuesto al Valor Agregado) para México con tasas 16%, 8% y 0%",
   "main": "dist/index.js",
