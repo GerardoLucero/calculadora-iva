@@ -10,6 +10,7 @@ export default [
         console: 'readonly',
         describe: 'readonly',
         test: 'readonly',
+        it: 'readonly',
         expect: 'readonly'
       }
     },
