@@ -6,6 +6,7 @@
 <!-- BADGES-DONATIONS-END -->
 
 [![npm version](https://badge.fury.io/js/calculadora-iva.svg)](https://badge.fury.io/js/calculadora-iva)
+[![npm downloads](https://img.shields.io/npm/dm/calculadora-iva.svg)](https://www.npmjs.com/package/calculadora-iva)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Node.js CI](https://github.com/GerardoLucero/calculadora-iva/workflows/CI%2FCD%20Pipeline/badge.svg)](https://github.com/GerardoLucero/calculadora-iva/actions)
 
