@@ -1,35 +1,33 @@
-# Calculadora de IVA
+# calculadora-iva
 
-<!-- BADGES-DONATIONS-START -->
-[![Ko-fi](https://img.shields.io/badge/Ko--fi-Donate-orange?logo=ko-fi)](https://ko-fi.com/gerardolucero)
-[![BuyMeACoffee](https://img.shields.io/badge/Buy%20Me%20a%20Coffee-Support-yellow?logo=buy-me-a-coffee)](https://buymeacoffee.com/lucerorios0)
-<!-- BADGES-DONATIONS-END -->
+Librería moderna para calcular IVA (Impuesto al Valor Agregado) en México con las 3 tasas oficiales: 16% (general), 8% (frontera) y 0% (exento).
 
+[![Ko-fi](https://img.shields.io/badge/Ko--fi-FF5E5B?style=flat&logo=ko-fi&logoColor=white)](https://ko-fi.com/gerardolucero)
+[![Buy Me a Coffee](https://img.shields.io/badge/Buy%20Me%20a%20Coffee-FFDD00?style=flat&logo=buy-me-a-coffee&logoColor=black)](https://buymeacoffee.com/lucerorios0)
+[![GitHub Stars](https://img.shields.io/github/stars/GerardoLucero/calculadora-iva?style=social)](https://github.com/GerardoLucero/calculadora-iva)
 [![npm version](https://badge.fury.io/js/calculadora-iva.svg)](https://badge.fury.io/js/calculadora-iva)
 [![npm downloads](https://img.shields.io/npm/dm/calculadora-iva.svg)](https://www.npmjs.com/package/calculadora-iva)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Node.js CI](https://github.com/GerardoLucero/calculadora-iva/workflows/CI%2FCD%20Pipeline/badge.svg)](https://github.com/GerardoLucero/calculadora-iva/actions)
 
-Librería moderna para calcular **IVA (Impuesto al Valor Agregado)** en México con las 3 tasas oficiales: 16% (general), 8% (frontera) y 0% (exento).
+## Features
 
-## 🚀 Características
+- **3 tasas de IVA** — 16%, 8% y 0%
+- **Cálculo desde subtotal** — obtener IVA y total
+- **Cálculo inverso** — obtener subtotal desde total con IVA
+- **Múltiples conceptos** — calcula IVA para varios productos
+- **Categorías exentas** — identifica productos sin IVA
+- **TypeScript ready** — incluye definiciones de tipos
+- **Zero dependencies** — totalmente standalone
+- **Cobertura de tests > 90%**
 
-- ✅ **3 tasas de IVA** - 16%, 8% y 0%
-- ✅ **Cálculo desde subtotal** - Obtener IVA y total
-- ✅ **Cálculo inverso** - Obtener subtotal desde total con IVA
-- ✅ **Múltiples conceptos** - Calcula IVA para varios productos
-- ✅ **Categorías exentas** - Identifica productos sin IVA
-- ✅ **TypeScript ready** - Incluye definiciones de tipos
-- ✅ **Zero dependencies** - Totalmente standalone
-- ✅ **Totalmente probado** - Cobertura > 90%
-
-## 📦 Instalación
+## Instalación
 
 ```bash
 npm install calculadora-iva
 ```
 
-## 🔧 Uso
+## Uso
 
 ### Calcular IVA (desde subtotal)
 
@@ -39,12 +37,7 @@ import { calcularIVA } from 'calculadora-iva';
 // IVA al 16% (tasa general)
 const resultado = calcularIVA(1000);
 console.log(resultado);
-// {
-//   subtotal: 1000,
-//   tasaIVA: 16,
-//   iva: 160,
-//   total: 1160
-// }
+// { subtotal: 1000, tasaIVA: 16, iva: 160, total: 1160 }
 
 // IVA al 8% (zona fronteriza)
 const frontera = calcularIVA(1000, 0.08);
@@ -57,15 +50,9 @@ console.log(frontera);
 ```javascript
 import { calcularSubtotal } from 'calculadora-iva';
 
-// Obtener subtotal desde un total que ya incluye IVA
 const desglose = calcularSubtotal(1160);
 console.log(desglose);
-// {
-//   total: 1160,
-//   tasaIVA: 16,
-//   subtotal: 1000,
-//   iva: 160
-// }
+// { total: 1160, tasaIVA: 16, subtotal: 1000, iva: 160 }
 ```
 
 ### Múltiples conceptos
@@ -81,11 +68,7 @@ const conceptos = [
 
 const factura = calcularIVAMultiple(conceptos);
 console.log(factura.totales);
-// {
-//   subtotal: 350,
-//   iva: 24,
-//   total: 374
-// }
+// { subtotal: 350, iva: 24, total: 374 }
 ```
 
 ### Usar constantes
@@ -98,7 +81,7 @@ const frontera = calcularIVA(1000, IVA_FRONTERA); // 8%
 const exento = calcularIVA(1000, IVA_EXENTO);     // 0%
 ```
 
-## 📋 API
+## API
 
 ### `calcularIVA(subtotal, tasa?): Object`
 ### `calcularSubtotal(total, tasa?): Object`
@@ -107,7 +90,7 @@ const exento = calcularIVA(1000, IVA_EXENTO);     // 0%
 ### `obtenerTasasIVA(): Object`
 ### `estaExento(categoria): boolean`
 
-## 💰 Tasas de IVA en México
+## Tasas de IVA en México
 
 | Tasa | Porcentaje | Aplicación |
 |------|------------|------------|
@@ -115,13 +98,6 @@ const exento = calcularIVA(1000, IVA_EXENTO);     // 0%
 | Fronteriza | 8% | Región fronteriza norte |
 | Exenta | 0% | Alimentos, medicinas, libros, educación, salud |
 
-## 📄 Licencia
+## Licencia
 
 MIT © [Gerardo Lucero](https://github.com/GerardoLucero)
-
-<!-- DONATIONS-START -->
-## 💖 Apoya el Ecosistema Mexicano OSS
-
-- [Ko-fi](https://ko-fi.com/gerardolucero)
-- [Buy Me a Coffee](https://buymeacoffee.com/lucerorios0)
-<!-- DONATIONS-END -->
