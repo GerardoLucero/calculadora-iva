@@ -2,13 +2,10 @@
 
 Librería moderna para calcular IVA (Impuesto al Valor Agregado) en México con las 3 tasas oficiales: 16% (general), 8% (frontera) y 0% (exento).
 
-[![Ko-fi](https://img.shields.io/badge/Ko--fi-FF5E5B?style=flat&logo=ko-fi&logoColor=white)](https://ko-fi.com/gerardolucero)
-[![Buy Me a Coffee](https://img.shields.io/badge/Buy%20Me%20a%20Coffee-FFDD00?style=flat&logo=buy-me-a-coffee&logoColor=black)](https://buymeacoffee.com/lucerorios0)
-[![GitHub Stars](https://img.shields.io/github/stars/GerardoLucero/calculadora-iva?style=social)](https://github.com/GerardoLucero/calculadora-iva)
 [![npm version](https://badge.fury.io/js/calculadora-iva.svg)](https://badge.fury.io/js/calculadora-iva)
 [![npm downloads](https://img.shields.io/npm/dm/calculadora-iva.svg)](https://www.npmjs.com/package/calculadora-iva)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Node.js CI](https://github.com/GerardoLucero/calculadora-iva/workflows/CI%2FCD%20Pipeline/badge.svg)](https://github.com/GerardoLucero/calculadora-iva/actions)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![CI](https://github.com/GerardoLucero/calculadora-iva/actions/workflows/ci-cd.yml/badge.svg)](https://github.com/GerardoLucero/calculadora-iva/actions/workflows/ci-cd.yml)
 
 ## Features
 
@@ -98,6 +95,13 @@ const exento = calcularIVA(1000, IVA_EXENTO);     // 0%
 | Fronteriza | 8% | Región fronteriza norte |
 | Exenta | 0% | Alimentos, medicinas, libros, educación, salud |
 
+## Apoyo
+
+Proyecto de código abierto mantenido en mi tiempo libre. Si te fue útil y quieres agradecerlo:
+
+[![Ko-fi](https://img.shields.io/badge/Ko--fi-FF5E5B?style=flat&logo=ko-fi&logoColor=white)](https://ko-fi.com/gerardolucero)
+[![Buy Me a Coffee](https://img.shields.io/badge/Buy%20Me%20a%20Coffee-FFDD00?style=flat&logo=buy-me-a-coffee&logoColor=black)](https://buymeacoffee.com/lucerorios0)
+
 ## Licencia
 
-MIT © [Gerardo Lucero](https://github.com/GerardoLucero)
+MIT © [Gerardo Lucero](https://github.com/GerardoLucero), ver [LICENSE](LICENSE).
