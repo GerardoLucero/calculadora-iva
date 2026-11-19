@@ -1,2 +1,165 @@
-const a={GENERAL:.16,FRONTERA:.08,EXENTO:0};function t(t,e=a.GENERAL){if(!t||t<0)throw new Error("El subtotal debe ser un número positivo");if(e<0||e>1)throw new Error("La tasa debe estar entre 0 y 1 (ejemplo: 0.16 para 16%)");const o=t*e,r=t+o;return{subtotal:parseFloat(t.toFixed(2)),tasaIVA:parseFloat((100*e).toFixed(2)),iva:parseFloat(o.toFixed(2)),total:parseFloat(r.toFixed(2))}}function e(t,e=a.GENERAL){if(!t||t<0)throw new Error("El total debe ser un número positivo");if(e<0||e>1)throw new Error("La tasa debe estar entre 0 y 1 (ejemplo: 0.16 para 16%)");const o=t/(1+e),r=t-o;return{total:parseFloat(t.toFixed(2)),tasaIVA:parseFloat((100*e).toFixed(2)),subtotal:parseFloat(o.toFixed(2)),iva:parseFloat(r.toFixed(2))}}function o(e,o=a.GENERAL){return t(e,o).total}function r(e){if(!Array.isArray(e))throw new Error("Se requiere un array de conceptos");let o=0,r=0;const s=[];return e.forEach((e,n)=>{const{subtotal:i,tasa:l=a.GENERAL,descripcion:c=`Concepto ${n+1}`}=e,E=t(i,l);o+=E.subtotal,r+=E.iva,s.push({descripcion:c,...E})}),{conceptos:s,totales:{subtotal:parseFloat(o.toFixed(2)),iva:parseFloat(r.toFixed(2)),total:parseFloat((o+r).toFixed(2))}}}function s(){return{"año":2024,tasas:{general:{tasa:a.GENERAL,porcentaje:"16%",aplicacion:"Tasa general aplicable en todo el país"},fronteriza:{tasa:a.FRONTERA,porcentaje:"8%",aplicacion:"Región fronteriza norte (hasta 20 km de la frontera con EE.UU.)"},exenta:{tasa:a.EXENTO,porcentaje:"0%",aplicacion:"Alimentos básicos, medicinas, libros, servicios de educación y salud"}}}}function n(a){return["alimentos-basicos","medicinas","libros","periodicos","educacion","salud","transporte-publico"].includes(a.toLowerCase())}const i=a.GENERAL,l=a.FRONTERA,c=a.EXENTO;var E={calcularIVA:t,calcularSubtotal:e,calcularTotal:o,calcularIVAMultiple:r,obtenerTasasIVA:s,estaExento:n,IVA_GENERAL:i,IVA_FRONTERA:l,IVA_EXENTO:c};export{c as IVA_EXENTO,l as IVA_FRONTERA,i as IVA_GENERAL,t as calcularIVA,r as calcularIVAMultiple,e as calcularSubtotal,o as calcularTotal,E as default,n as estaExento,s as obtenerTasasIVA};
+/**
+ * Calculadora de IVA (Impuesto al Valor Agregado) México
+ * Maneja las 3 tasas oficiales: 16%, 8% y 0%
+ * 
+ * @author Gerardo Lucero
+ * @version 1.0.0
+ */
+
+// Tasas de IVA en México
+const TASAS_IVA = {
+  GENERAL: 0.16,
+  // 16% - Tasa general
+  FRONTERA: 0.08,
+  // 8% - Zona fronteriza
+  EXENTO: 0.00 // 0% - Exento o tasa 0%
+};
+
+/**
+ * Calcula el IVA de una cantidad
+ * @param {number} subtotal - Cantidad sin IVA
+ * @param {number} tasa - Tasa de IVA (default: 16%)
+ * @returns {Object} Cálculo completo
+ */
+function calcularIVA(subtotal, tasa = TASAS_IVA.GENERAL) {
+  if (!subtotal || subtotal < 0) {
+    throw new Error('El subtotal debe ser un número positivo');
+  }
+  if (tasa < 0 || tasa > 1) {
+    throw new Error('La tasa debe estar entre 0 y 1 (ejemplo: 0.16 para 16%)');
+  }
+  const iva = subtotal * tasa;
+  const total = subtotal + iva;
+  return {
+    subtotal: parseFloat(subtotal.toFixed(2)),
+    tasaIVA: parseFloat((tasa * 100).toFixed(2)),
+    iva: parseFloat(iva.toFixed(2)),
+    total: parseFloat(total.toFixed(2))
+  };
+}
+
+/**
+ * Calcula el subtotal desde un total que ya incluye IVA
+ * @param {number} total - Cantidad con IVA incluido
+ * @param {number} tasa - Tasa de IVA utilizada (default: 16%)
+ * @returns {Object} Desglose del cálculo
+ */
+function calcularSubtotal(total, tasa = TASAS_IVA.GENERAL) {
+  if (!total || total < 0) {
+    throw new Error('El total debe ser un número positivo');
+  }
+  if (tasa < 0 || tasa > 1) {
+    throw new Error('La tasa debe estar entre 0 y 1 (ejemplo: 0.16 para 16%)');
+  }
+  const subtotal = total / (1 + tasa);
+  const iva = total - subtotal;
+  return {
+    total: parseFloat(total.toFixed(2)),
+    tasaIVA: parseFloat((tasa * 100).toFixed(2)),
+    subtotal: parseFloat(subtotal.toFixed(2)),
+    iva: parseFloat(iva.toFixed(2))
+  };
+}
+
+/**
+ * Calcula el total sumando IVA al subtotal
+ * @param {number} subtotal - Cantidad sin IVA
+ * @param {number} tasa - Tasa de IVA (default: 16%)
+ * @returns {number} Total con IVA
+ */
+function calcularTotal(subtotal, tasa = TASAS_IVA.GENERAL) {
+  const resultado = calcularIVA(subtotal, tasa);
+  return resultado.total;
+}
+
+/**
+ * Calcula IVA para múltiples conceptos
+ * @param {Array} conceptos - Array de objetos {subtotal, tasa?}
+ * @returns {Object} Resumen de todos los conceptos
+ */
+function calcularIVAMultiple(conceptos) {
+  if (!Array.isArray(conceptos)) {
+    throw new Error('Se requiere un array de conceptos');
+  }
+  let subtotalTotal = 0;
+  let ivaTotal = 0;
+  const desglose = [];
+  conceptos.forEach((concepto, index) => {
+    const {
+      subtotal,
+      tasa = TASAS_IVA.GENERAL,
+      descripcion = `Concepto ${index + 1}`
+    } = concepto;
+    const calculo = calcularIVA(subtotal, tasa);
+    subtotalTotal += calculo.subtotal;
+    ivaTotal += calculo.iva;
+    desglose.push({
+      descripcion,
+      ...calculo
+    });
+  });
+  return {
+    conceptos: desglose,
+    totales: {
+      subtotal: parseFloat(subtotalTotal.toFixed(2)),
+      iva: parseFloat(ivaTotal.toFixed(2)),
+      total: parseFloat((subtotalTotal + ivaTotal).toFixed(2))
+    }
+  };
+}
+
+/**
+ * Obtiene las tasas de IVA vigentes en México
+ * @returns {Object} Tasas de IVA
+ */
+function obtenerTasasIVA() {
+  return {
+    año: 2024,
+    tasas: {
+      general: {
+        tasa: TASAS_IVA.GENERAL,
+        porcentaje: '16%',
+        aplicacion: 'Tasa general aplicable en todo el país'
+      },
+      fronteriza: {
+        tasa: TASAS_IVA.FRONTERA,
+        porcentaje: '8%',
+        aplicacion: 'Región fronteriza norte (hasta 20 km de la frontera con EE.UU.)'
+      },
+      exenta: {
+        tasa: TASAS_IVA.EXENTO,
+        porcentaje: '0%',
+        aplicacion: 'Alimentos básicos, medicinas, libros, servicios de educación y salud'
+      }
+    }
+  };
+}
+
+/**
+ * Determina si un producto/servicio está exento de IVA
+ * @param {string} categoria - Categoría del producto/servicio
+ * @returns {boolean} True si está exento
+ */
+function estaExento(categoria) {
+  const categoriasExentas = ['alimentos-basicos', 'medicinas', 'libros', 'periodicos', 'educacion', 'salud', 'transporte-publico'];
+  return categoriasExentas.includes(categoria.toLowerCase());
+}
+
+// Constantes exportadas
+const IVA_GENERAL = TASAS_IVA.GENERAL;
+const IVA_FRONTERA = TASAS_IVA.FRONTERA;
+const IVA_EXENTO = TASAS_IVA.EXENTO;
+var index = {
+  calcularIVA,
+  calcularSubtotal,
+  calcularTotal,
+  calcularIVAMultiple,
+  obtenerTasasIVA,
+  estaExento,
+  IVA_GENERAL,
+  IVA_FRONTERA,
+  IVA_EXENTO
+};
+
+export { IVA_EXENTO, IVA_FRONTERA, IVA_GENERAL, calcularIVA, calcularIVAMultiple, calcularSubtotal, calcularTotal, index as default, estaExento, obtenerTasasIVA };
 //# sourceMappingURL=index.esm.js.map
